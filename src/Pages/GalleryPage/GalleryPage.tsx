@@ -21,37 +21,43 @@ import socarStand from "./assets/socar-stand.jpeg";
 import homme from "./assets/homme.png";
 import mado from "./assets/mado.png";
 import socar from "./assets/socar.png";
+
+const images: IDialog[] = [
+  { imageUrl: hommeStand, name: "homme" },
+  { imageUrl: madoStand, name: "mado" },
+  { imageUrl: socarStand, name: "socar" },
+];
 interface ISlide {
   imageUrl: string;
 }
-
+interface IDialog {
+  imageUrl: string;
+  name: "mado" | "socar" | "homme";
+}
+interface IDialogState {
+  socar: boolean;
+  homme: boolean;
+  mado: boolean;
+}
 export const GalleryPage = () => {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const isMediumScreen = useMediaQuery(
     "(min-width:600px) and (max-width:960px)"
   );
-  const [openSocar, setOpenSocar] = useState(false);
-  const [openHomme, setOpenHomme] = useState(false);
-  const [openMado, setOpenMado] = useState(false);
+  const [openDialogs, setOpenDialogs] = useState<IDialogState>({
+    socar: false,
+    homme: false,
+    mado: false,
+  });
 
-  const handleClickOpenSocar = () => {
-    setOpenSocar(true);
-  };
-  const handleClickOpenHomme = () => {
-    setOpenHomme(true);
-  };
-  const handleClickOpenMado = () => {
-    setOpenMado(true);
+  // Функция для открытия диалога
+  const handleOpenDialog = (dialogName: keyof IDialogState) => {
+    setOpenDialogs((prev) => ({ ...prev, [dialogName]: true }));
   };
 
-  const handleCloseSocar = () => {
-    setOpenSocar(false);
-  };
-  const handleCloseHomme = () => {
-    setOpenHomme(false);
-  };
-  const handleCloseMado = () => {
-    setOpenMado(false);
+  // Функция для закрытия диалога
+  const handleCloseDialog = (dialogName: keyof IDialogState) => {
+    setOpenDialogs((prev) => ({ ...prev, [dialogName]: false }));
   };
   // Determine the number of slides to show based on screen size
   const slidesPerView = isSmallScreen ? 1 : isMediumScreen ? 2 : 3;
@@ -155,7 +161,18 @@ export const GalleryPage = () => {
             },
           }}
         >
-          <img
+          {images.map((image: IDialog) => {
+            return (
+              <img
+                src={image.imageUrl}
+                width={300}
+                height={300}
+                onClick={() => handleOpenDialog(image.name)}
+                style={{ cursor: "pointer" }}
+              />
+            );
+          })}
+          {/* <img
             src={hommeStand}
             width={300}
             height={300}
@@ -175,7 +192,7 @@ export const GalleryPage = () => {
             height={300}
             onClick={handleClickOpenSocar}
             style={{ cursor: "pointer" }}
-          />
+          /> */}
         </Box>
         <Box
           sx={{
@@ -194,7 +211,11 @@ export const GalleryPage = () => {
           <img src={mado} width={200} />
           <img src={socar} width={200} />
 
-          <Dialog open={openSocar} onClose={handleCloseSocar} maxWidth="xl">
+          <Dialog
+            open={openDialogs.socar}
+            onClose={() => handleCloseDialog("socar")}
+            maxWidth="xl"
+          >
             <DialogContent>
               <img
                 src={socarStand}
@@ -203,7 +224,11 @@ export const GalleryPage = () => {
               />
             </DialogContent>
           </Dialog>
-          <Dialog open={openHomme} onClose={handleCloseHomme} maxWidth="xl">
+          <Dialog
+            open={openDialogs.homme}
+            onClose={() => handleCloseDialog("homme")}
+            maxWidth="xl"
+          >
             <DialogContent>
               <img
                 src={hommeStand}
@@ -213,7 +238,11 @@ export const GalleryPage = () => {
             </DialogContent>
           </Dialog>
 
-          <Dialog open={openMado} onClose={handleCloseMado} maxWidth="xl">
+          <Dialog
+            open={openDialogs.mado}
+            onClose={() => handleCloseDialog("mado")}
+            maxWidth="xl"
+          >
             <DialogContent>
               <img
                 src={madoStand}
