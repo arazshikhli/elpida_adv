@@ -8,7 +8,9 @@ import Divider from "@mui/joy/Divider";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-
+import bg from "../web/hosting.jpg";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import EmailIcon from "@mui/icons-material/Email";
 const steps = [
   "Siz mütəxəssis ilə sorğu göndərirsiz",
   "Layihə ilə bağlı məlumatları toplayırıq",
@@ -24,7 +26,7 @@ export const AboutPage = () => {
       sx={{
         width: "100%",
         minHeight: "calc(100vh - 64px)",
-        backgroundImage: "url('/web/hosting.jpg')",
+        backgroundImage: `url('${bg}')`,
         display: "flex",
         flexDirection: "row",
       }}
@@ -39,6 +41,163 @@ export const AboutPage = () => {
           marginBottom: "10px",
         }}
       >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Typography
+            color="white"
+            sx={{
+              marginTop: "20px",
+              fontSize: {
+                xs: "22px",
+                md: "24px",
+                lg: "28px",
+                xl: "36px",
+              },
+            }}
+          >
+            Əlaqə
+          </Typography>
+          <Box
+            sx={{
+              color: "white",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <WhatsAppIcon
+              sx={{
+                fill: "green",
+                marginRight: "20px",
+                fontSize: {
+                  xs: "20px",
+                  md: "22px",
+                  lg: "24px",
+                  xl: "30px",
+                },
+              }}
+            />
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "20px",
+                  md: "22px",
+                  lg: "24px",
+                  xl: "30px",
+                },
+              }}
+            >
+              {" "}
+              +994 55 344 15 51
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              color: "white",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <WhatsAppIcon
+              sx={{
+                fill: "green",
+                marginRight: "20px",
+                fontSize: {
+                  xs: "20px",
+                  md: "22px",
+                  lg: "24px",
+                  xl: "30px",
+                },
+              }}
+            />
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "20px",
+                  md: "22px",
+                  lg: "24px",
+                  xl: "30px",
+                },
+              }}
+            >
+              +994 77 416 63 17
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              color: "white",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <EmailIcon
+              sx={{
+                fill: "green",
+                marginRight: "20px",
+                fontSize: {
+                  xs: "20px",
+                  md: "22px",
+                  lg: "24px",
+                  xl: "30px",
+                },
+              }}
+            />
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "20px",
+                  md: "22px",
+                  lg: "24px",
+                  xl: "30px",
+                },
+              }}
+            >
+              arazaraz777@gmail.com
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              color: "white",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <EmailIcon
+              sx={{
+                fill: "green",
+                marginRight: "20px",
+                fontSize: {
+                  xs: "20px",
+                  md: "22px",
+                  lg: "24px",
+                  xl: "30px",
+                },
+              }}
+            />
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "20px",
+                  md: "22px",
+                  lg: "24px",
+                  xl: "30px",
+                },
+              }}
+            >
+              info_elpida_adv@mail.ru
+            </Typography>
+          </Box>
+        </Box>
         <Box
           sx={{
             width: {
