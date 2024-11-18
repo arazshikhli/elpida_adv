@@ -11,6 +11,12 @@ import StepLabel from "@mui/material/StepLabel";
 import bg from "../web/hosting.jpg";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import EmailIcon from "@mui/icons-material/Email";
+import about1 from "./assets/1.png";
+import about2 from "./assets/2.png";
+import about3 from "./assets/3.png";
+import about4 from "./assets/4.png";
+import about5 from "./assets/5.png";
+import about6 from "./assets/6.png";
 const steps = [
   "Siz mütəxəssis ilə sorğu göndərirsiz",
   "Layihə ilə bağlı məlumatları toplayırıq",
@@ -298,8 +304,8 @@ export const AboutPage = () => {
             >
               <img
                 width={"150px"}
-                src="/about/6.png"
-                srcSet="/about/6.png"
+                src={about6}
+                srcSet={about6}
                 loading="lazy"
                 alt=""
               />
@@ -324,8 +330,8 @@ export const AboutPage = () => {
             >
               <img
                 width={"150px"}
-                src="/about/5.png"
-                srcSet="/about/5.png"
+                src={about5}
+                srcSet={about5}
                 loading="lazy"
                 alt=""
               />
@@ -350,8 +356,8 @@ export const AboutPage = () => {
             >
               <img
                 width={"150px"}
-                src="/about/2.png"
-                srcSet="/about/2.png"
+                src={about2}
+                srcSet={about2}
                 loading="lazy"
                 alt=""
               />
@@ -390,8 +396,8 @@ export const AboutPage = () => {
             >
               <img
                 width={"150px"}
-                src="/about/4.png"
-                srcSet="/about/4.png"
+                src={about4}
+                srcSet={about4}
                 loading="lazy"
                 alt=""
               />
@@ -416,8 +422,8 @@ export const AboutPage = () => {
             >
               <img
                 width={"150px"}
-                src="/about/3.png"
-                srcSet="/about/3.png"
+                src={about3}
+                srcSet={about3}
                 loading="lazy"
                 alt=""
               />
@@ -438,8 +444,8 @@ export const AboutPage = () => {
             >
               <img
                 width={"150px"}
-                src="/about/1.png"
-                srcSet="/about/1.png"
+                src={about1}
+                srcSet={about1}
                 loading="lazy"
                 alt=""
               />
