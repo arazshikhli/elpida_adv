@@ -1,7 +1,7 @@
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Grid, Typography, useMediaQuery } from "@mui/material";
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Dialog, DialogContent } from "@mui/material";
+import { Dialog, DialogContent,Grid2 } from "@mui/material";
 import {
   Navigation,
   Pagination,
@@ -21,7 +21,13 @@ import socarStand from "./assets/socar-stand.jpeg";
 import homme from "./assets/homme.png";
 import mado from "./assets/mado.png";
 import socar from "./assets/socar.png";
+import './style.css'
+import {galleryImages} from './assets/2/data'
 
+interface IgalleryImage{
+  imageUrl:string;
+  alt:string
+}
 const images: IDialog[] = [
   { imageUrl: hommeStand, name: "homme" },
   { imageUrl: madoStand, name: "mado" },
@@ -172,27 +178,7 @@ export const GalleryPage = () => {
               />
             );
           })}
-          {/* <img
-            src={hommeStand}
-            width={300}
-            height={300}
-            onClick={handleClickOpenHomme}
-            style={{ cursor: "pointer" }}
-          />
-          <img
-            src={madoStand}
-            width={300}
-            height={300}
-            onClick={handleClickOpenMado}
-            style={{ cursor: "pointer" }}
-          />
-          <img
-            src={socarStand}
-            width={300}
-            height={300}
-            onClick={handleClickOpenSocar}
-            style={{ cursor: "pointer" }}
-          /> */}
+  
         </Box>
         <Box
           sx={{
@@ -252,6 +238,43 @@ export const GalleryPage = () => {
             </DialogContent>
           </Dialog>
         </Box>
+       <Box 
+       
+       sx={{
+        display:'flex',
+        flexDirection:'column',
+        width:'100%',
+        textAlign:'center',
+        minHeight:'300px',
+        marginTop:'5px'
+       }}>
+        <Typography sx={{
+          fontSize:'30px',
+          letterSpacing:'3px',
+          fontWeight:'800',
+          fontFamily:'Poppins, sans-serif',
+          marginTop:'10px'
+        }}>DİGƏR İŞLƏRİMİZ:</Typography>
+       <Grid2 
+       container
+       spacing={2}
+       >
+        {galleryImages.map((image:IgalleryImage)=>{
+          return <Card 
+          sx={{
+            width:'300px'
+          }}
+          >
+              <CardMedia
+               component="img"
+               height="194"
+               image={image.imageUrl}
+               alt="Paella dish"
+              />
+          </Card>
+        })}
+       </Grid2>
+       </Box>
       </Box>
       <Box sx={{ flex: 1 }}></Box>
     </Box>
