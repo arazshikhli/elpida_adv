@@ -46,6 +46,7 @@ interface IDialogState {
   mado: boolean;
 }
 export const GalleryPage = () => {
+  const [selectedImage,setSelectedImage]=useState<IgalleryImage>()
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const isMediumScreen = useMediaQuery(
     "(min-width:600px) and (max-width:960px)"
@@ -55,6 +56,12 @@ export const GalleryPage = () => {
     homme: false,
     mado: false,
   });
+
+  const handleSelectImage=(image:IgalleryImage)=>{
+    setSelectedImage(image)
+  }
+
+
 
   // Функция для открытия диалога
   const handleOpenDialog = (dialogName: keyof IDialogState) => {
@@ -260,10 +267,15 @@ export const GalleryPage = () => {
        spacing={2}
        >
         {galleryImages.map((image:IgalleryImage)=>{
-          return <Card 
+          return <Grid2
+          
+          key={image.imageUrl}>   <Card 
+          
           sx={{
-            width:'300px'
+            width:'300px',
+            cursor:'pointer'
           }}
+          
           >
               <CardMedia
                component="img"
@@ -271,7 +283,8 @@ export const GalleryPage = () => {
                image={image.imageUrl}
                alt="Paella dish"
               />
-          </Card>
+          </Card></Grid2>
+       
         })}
        </Grid2>
        </Box>
