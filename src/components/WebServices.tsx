@@ -64,9 +64,9 @@ export const WebServices = () => {
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
         >
           {webServiceData &&
-            webServiceData.map((webItem: IwebServiceProp) => {
+            webServiceData.map((webItem: IwebServiceProp,index) => {
               return (
-                <Grid item xs={6}>
+                <Grid item xs={6} key={index}>
                   <WebCard
                     key={webItem.title}
                     title={webItem.title}

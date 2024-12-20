@@ -1,7 +1,9 @@
-import { Box, Card, CardContent, CardMedia, Grid, Typography, useMediaQuery } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Card, CardContent, CardMedia, Grid, Typography, useMediaQuery,Skeleton } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Dialog, DialogContent,Grid2 } from "@mui/material";
+import Resizer from 'react-image-file-resizer';
+
 import {
   Navigation,
   Pagination,
@@ -45,8 +47,12 @@ interface IDialogState {
   homme: boolean;
   mado: boolean;
 }
+
+
 export const GalleryPage = () => {
   const [selectedImage,setSelectedImage]=useState<IgalleryImage>()
+  const [loaded, setLoaded] = useState(false);
+
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const isMediumScreen = useMediaQuery(
     "(min-width:600px) and (max-width:960px)"
@@ -57,11 +63,56 @@ export const GalleryPage = () => {
     mado: false,
   });
 
+  const resizeImage = (
+    file: File,
+    width: number,
+    height: number
+  ): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      Resizer.imageFileResizer(
+        file,
+        width, // Ширина
+        height, // Высота
+        "JPEG", // Формат
+        90, // Качество
+        0, // Угол поворота
+        (uri) => {
+          if (typeof uri === "string") {
+            resolve(uri); // Возвращаем строку Base64
+          } else {
+            reject(new Error("Unexpected result type from imageFileResizer"));
+          }
+        },
+        "base64" // Указываем, что нужен результат в Base64
+      );
+    });
+  };
+  
+  const handleImageLoad = async (imageUrl: string) => {
+    setLoaded(false); // Пока изображение не загружено, показываем Skeleton
+  
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const file = new File([blob], "image.jpg"); // Преобразуем в File
+      const resizedImage = await resizeImage(file, 300, 300); // Ресайзим изображение
+      setSelectedImage({ imageUrl: resizedImage, alt: "resized image" }); // Base64 строка
+    } catch (error) {
+      console.error("Ошибка при ресайзинге изображения:", error);
+    } finally {
+      setLoaded(true);
+    }
+  };
+
+
   const handleSelectImage=(image:IgalleryImage)=>{
     setSelectedImage(image)
   }
 
 
+  useEffect(() =>{
+    console.log(loaded) 
+  },[loaded]) 
 
   // Функция для открытия диалога
   const handleOpenDialog = (dialogName: keyof IDialogState) => {
@@ -174,9 +225,10 @@ export const GalleryPage = () => {
             },
           }}
         >
-          {images.map((image: IDialog) => {
+          {images.map((image: IDialog,index) => {
             return (
               <img
+              key={index}
                 src={image.imageUrl}
                 width={300}
                 height={300}
@@ -266,23 +318,32 @@ export const GalleryPage = () => {
        container
        spacing={2}
        >
-        {galleryImages.map((image:IgalleryImage)=>{
+        {galleryImages.map((image:IgalleryImage,idx)=>{
           return <Grid2
           
-          key={image.imageUrl}>   <Card 
+          key={idx}>   <Card 
           
           sx={{
             width:'300px',
-            cursor:'pointer'
+            cursor:'pointer',
+            height:'300px'
           }}
           
           >
-              <CardMedia
-               component="img"
-               height="194"
-               image={image.imageUrl}
-               alt="Paella dish"
-              />
+            {!loaded && <Skeleton variant="rectangular" width="100%" height={200} />}
+          <Box
+  component="img"
+  src={image.imageUrl} // Ресайзенное изображение
+  alt={image.alt}
+  loading="lazy"
+  onLoad={() => setLoaded(true)}
+  sx={{
+    display: loaded ? "block" : "none",
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+  }}
+/>
           </Card></Grid2>
        
         })}
